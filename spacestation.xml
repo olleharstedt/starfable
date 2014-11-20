@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     Ship type sentence data
+
+     suffix _s is for sentence
+ -->
+<lang>
+  <en>
+    <race>
+      <rabbit>RAbbit</rabbit>
+      <bird>bird</bird>
+      <lion>lion</lion>
+      <rat>rat</rat>
+    </race>
+    <age_s>
+      The ship is % years old.
+    </age_s>
+    <shiptype_s>
+      The ship is of type %.
+    </shiptype_s>
+    <shiptype_military>
+      military
+    </shiptype_military>
+    <shiptype_civil>
+      civil
+    </shiptype_civil>
+  </en>
+</lang>
