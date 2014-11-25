@@ -7,22 +7,64 @@
 <lang>
   <en>
     <race>
-      <rabbit>RAbbit</rabbit>
+      <rabbit>rabbit</rabbit>
       <bird>bird</bird>
       <lion>lion</lion>
       <rat>rat</rat>
     </race>
+
+    <!-- Age -->
     <age_s>
       The ship is % years old.
     </age_s>
-    <shiptype_s>
-      The ship is of type %.
-    </shiptype_s>
-    <shiptype_military>
-      military
-    </shiptype_military>
-    <shiptype_civil>
-      civil
-    </shiptype_civil>
+    <age_t_s>
+    </age_t_s>
+    <age_t_new>new</age_t_new>
+    <age_t_old>old</age_t_old>
+    <age_t_ancient>ancient</age_t_ancient>
+
+
+   <!-- Shiptype -->
+   <!-- age_t, type, builder -->
+    <shiptype_s>This is a % rabbit % ship, built by %.</shiptype_s>
+    <shiptype_military>military</shiptype_military>
+    <shiptype_civil>civil</shiptype_civil>
+
+    <!-- Builder -->
+    <builder_genius>a lonely genius</builder_genius>
+    <builder_syndicate>the syndicate</builder_syndicate>
+    <builder_family>a family</builder_family>
+
   </en>
+  <sv>
+    <race>
+      <rabbit>kanin</rabbit>
+      <bird>fågel</bird>
+      <lion>lejon</lion>
+      <rat>råtta</rat>
+    </race>
+
+    <!-- Age -->
+    <age_s>
+      The ship is % years old.
+    </age_s>
+    <age_t_s>
+    </age_t_s>
+    <age_t_new>nytt</age_t_new>
+    <age_t_old>gammalt</age_t_old>
+    <age_t_ancient>uråldrigt</age_t_ancient>
+
+
+   <!-- Shiptype -->
+   <!-- age_t, type, builder -->
+    <shiptype_s>Detta är ett % kanin % skepp, byggt av %.</shiptype_s>
+    <shiptype_military>militärt</shiptype_military>
+    <shiptype_civil>civilt</shiptype_civil>
+
+    <!-- Builder -->
+    <builder_genius>ensamt geni</builder_genius>
+    <builder_syndicate>syndikatet</builder_syndicate>
+    <builder_family>familjen</builder_family>
+
+  </sv>
 </lang>
