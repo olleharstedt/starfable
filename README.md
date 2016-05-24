@@ -1,3 +1,3 @@
-Generate random text material to the sci-fi setting Starfable.
+Wiki about the role-playing game Star Fable.
 
-Made in OCaml for maximum speed and type-safety.
+See the wiki for more information.
