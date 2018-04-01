@@ -21,6 +21,7 @@ type basic_properties = {
   learning    : int;
   agressivity : int;
   diplomacy   : int;
+  health      : int;
 };;
 
 type character = {
@@ -28,6 +29,7 @@ type character = {
   age : int;
   age_category : age_category;
   basic_properties : basic_properties;
+  jobs : string list;
 };;
 
 let category_of_age age =
@@ -55,6 +57,7 @@ let age =
   | "fågel" -> (two_dice ()) * 8
   | "lejon" -> (two_dice ()) * 7
   | "råtta" -> (two_dice ()) * 6
+  | _ -> assert false
 
 let gender = match Random.int 2 with
   | 0 -> "Manlig"
@@ -95,6 +98,7 @@ let basic_properties = apply_age_category age_cat {
   learning    = two_dice ();
   agressivity = two_dice ();
   diplomacy   = two_dice ();
+  health      = two_dice ();
 };;
 
 (**
@@ -102,25 +106,26 @@ let basic_properties = apply_age_category age_cat {
  *)
 let education props = 
   match props.learning with
-  | 2 -> "Analfabet"
+  | 1 | 2 -> "Analfabet"
   | 3 -> "Kan läsa och räkna, men inget mer"
   | 4 | 5 -> "Sex års grundskolgång"
   | 6 | 7 -> "Nio års grundskola"
   | 8 | 9 -> "Grundskola samt två år på universitet"
   | 10 -> "Grundskola samt fem år på universitet"
   | 11 -> "Grundskola samt akademisk karriär"
-  | 12 -> "Professor, otroligt lärd"
+  | 12 | 13 -> "Professor, otroligt lärd"
   | _ -> assert false
 ;;
 
 let jobs props =
   match props.resources with
   | 2 -> "Har aldrig haft ett jobb, tiggare"
-  | 3 -> "Tillfälliga ströjobb, mest arbetslös"
-  | 4 | 5 -> "Enkelt jobb, låg lön"
-  | 6 | 7 -> "Stabilt jobb"
+  | 3 -> "Arbetsloes"
+  | 4 -> "Tillfälliga ströjobb, mest arbetslös"
+  | 5 -> "Enkelt jobb, låg lön, kanske städare, sekreterare."
+  | 6 | 7 -> "Stabilt jobb, industri, lärare.."
   | 8 | 9 -> "Jobb med prestige och bra villkor, semester, sjukvård"
-  | 10 | 11 -> "Chef"
+  | 10 | 11 -> "Chef eller högt uppsatt"
   | 12 -> "Ägare och kung"
   | _ -> assert false
 ;;
@@ -134,19 +139,77 @@ let social props =
   | 8 | 9 -> "Är social, utåtriktad, har många vänner och kontakter"
   | 10 | 11 ->  "Stor familj och många vänner och kontakter i höga positioner"
   | 12 -> "Känner alla och kan träffa vem som helst vid behov"
+  | _ -> assert false
 ;;
 
+let weapon props =
+  match props.agressivity with
+  | 2 | 3 | 4 | 5 | 6 -> "Äger inget vapen"
+  | 7 -> "Äger ett litet vapen"
+  | 8 -> "Äger två små vapen"
+  | 9 -> "Äger ett stort vapen"
+  | 10 -> "Äger två stora vapen"
+  | 11 -> "Äger ett stort antal olika vapen"
+  | 12 -> "Äger vapen med militär styra, på gränsen till vad som är lagligt."
+  | _ -> assert false
+;;
+
+let job =
+  match basic_properties.resources with
+  | -1 | 0 | 1 | 2 | 3 -> "Arbetsloes eller kriminell"
+  | _ -> 
+      begin match race with
+      | "kanin" -> 
+          begin match Random.int 8 with
+          | 0 -> "Facklig byråkrat"
+          | 1 -> "Praktisk industri, mekaniker"
+          | 2 -> "Fraktpilot"
+          | 3 -> "Kock"
+          | 4 -> "Polis eller vakt"
+          | 5 -> "Milis"
+          | 6 -> "Sjuksyrra"
+          | 7 -> "Hotellägare, pub eller dylikt"
+          | _ -> assert false
+          end
+      | "råtta" ->
+          begin match Random.int 4 with
+          | 0 -> "Styrelseproffs"
+          | 1 -> "Företagsägare"
+          | 2 -> "Hacker"
+          | 3 -> "Diversehandel, försäljare"
+          | _ -> assert false
+          end
+      | "lejon" ->
+          begin match Random.int 5 with
+          | 0 -> "Statlig byråkrat"
+          | 1 -> "Militär"
+          | 2 -> "Specialtrupp"
+          | 3 -> "Aristokrat"
+          | 4 -> "Ritualledare"
+          | _ -> assert false
+          end
+      | "fågel" ->
+          begin match Random.int 2 with
+          | 0 -> "Präst"
+          | 1 -> "Arkitekt"
+          | _ -> assert false
+          end
+      | _ -> assert false
+      end
+;;
 
 (**
  * @return void
  *)
 let print_basic_properties props =
-  Printf.printf "Contacts: \t%d\n" props.contacts;
-  Printf.printf "Resources: \t%d\n" props.resources;
-  Printf.printf "Smart:   \t%d\n" props.smart;
-  Printf.printf "Learning: \t%d\n" props.learning;
-  Printf.printf "Agressivity: \t%d\n" props.agressivity;
-  Printf.printf "Diplomacy: \t%d\n" props.diplomacy;;
+  Printf.printf "Kontakter: \t%d\n" props.contacts;
+  Printf.printf "Resurser: \t%d\n" props.resources;
+  Printf.printf "Aggressivitet: \t%d\n" props.agressivity;
+  Printf.printf "Diplomati: \t%d\n" props.diplomacy;
+  Printf.printf "Smart:  \t%d\n" props.smart;
+  Printf.printf "Lärdom: \t%d\n" props.learning;
+  Printf.printf "Hälsa:  \t%d\n" props.health;
+;;
 
 Printf.printf "%s %s, %d år gammal\n"
   gender
@@ -157,3 +220,5 @@ print_basic_properties basic_properties;;
 print_endline (education basic_properties);;
 print_endline (jobs basic_properties);;
 print_endline (social basic_properties);;
+(*print_endline (weapon basic_properties);;*)
+print_endline (job);;
